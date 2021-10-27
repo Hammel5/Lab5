@@ -21,7 +21,84 @@
 
 using namespace std;
 
+void Guesses();
+void GoAgain(bool& again);
+
+int win = 0;
+int lose = 0;
+
 int main()
 {
+	bool again = true;
 
+	cout << "Welcome to the Number Guessing Game!" << endl;
+	cout << "For this game you will try to guess the number that is randomly generated." << endl;
+
+	do
+	{
+		Guesses();
+		GoAgain(again);
+	} while (again);
+
+	return 0;
+}
+
+void Guesses()
+{
+	srand(time(NULL));
+	int rand_num = (rand() % 100) + 1;
+	int tries = 20;
+
+	for (int i = 0; i < tries; i++)
+	{
+		int guess;
+		cout << endl << "Guess number " << i + 1 << ". What is your guess? ";
+		cin >> guess;
+
+		if (guess == rand_num)
+		{
+			cout << endl << endl << "Congrats! You guessed the number." << endl << endl;
+			i = tries;
+			win++;
+		}
+		else
+		{
+			cout << "Wrong!" << endl;
+			if (guess > rand_num)
+			{
+				cout << "Your guess is too high" << endl << endl;
+			}
+			else if (guess < rand_num)
+			{
+				cout << "Your guess is too low" << endl << endl;
+			}
+
+			if (i == tries - 1)
+			{
+				cout << "The number is: " << rand_num << endl;
+				lose++;
+			}
+		}
+	}
+}
+
+void GoAgain(bool& again)
+{
+	int again_input;
+	cout << "Would you like to play again? Enter 1 for Yes and 2 for No: ";
+	cin >> again_input;
+
+	switch (again_input)
+	{
+	case 1:	again = true;
+		break;
+
+	case 2:	again = false;
+		cout << "You won " << win << " time(s)! And you lost " << lose << " time(s)";
+		break;
+
+	default: cout << "Input error! Exiting program." << endl << endl;
+		again = false;
+		break;
+	}
 }
