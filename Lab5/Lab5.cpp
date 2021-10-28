@@ -21,18 +21,22 @@
 
 using namespace std;
 
-void Guesses();
-void GoAgain(bool& again);
+void Guesses(); // This function is for the game
+void GoAgain(bool& again); // This function is for going again
+void Win(); // This is for win statements
+void Lose(int randomNumber); // This is for lose statements
+void TryAgain(); // This is for play again statements
 
 int win = 0;
 int lose = 0;
 
-int main()
+int main() // Where everything is excuted from 
 {
 	bool again = true;
 
 	cout << "Welcome to the Number Guessing Game!" << endl;
 	cout << "For this game you will try to guess the number that is randomly generated." << endl;
+	cout << "The number is between 0 and 100. You have 20 guesses to get it right. Good Luck!" << endl;
 
 	do
 	{
@@ -43,52 +47,52 @@ int main()
 	return 0;
 }
 
-void Guesses()
+void Guesses() // This function is for the game
 {
 	srand(time(NULL));
-	int rand_num = (rand() % 100) + 1;
+	int randNum = (rand() % 101);
 	int tries = 20;
 
-	for (int i = 0; i < tries; i++)
+	for (int i = 0; i < tries; i++) // runs while i is less that tries (20)
 	{
 		int guess;
-		cout << endl << "Guess number " << i + 1 << ". What is your guess? ";
+		cout << endl << "Try number " << i + 1 << ". What is your guess? ";
 		cin >> guess;
 
-		if (guess == rand_num)
+		if (guess == randNum) // if the guess is correct
 		{
-			cout << endl << endl << "Congrats! You guessed the number." << endl << endl;
+			Win();
 			i = tries;
 			win++;
 		}
-		else
+		else // if the guess is incorrect
 		{
 			cout << "Wrong!" << endl;
-			if (guess > rand_num)
+			if (guess > randNum) // if the number is too high
 			{
 				cout << "Your guess is too high" << endl << endl;
 			}
-			else if (guess < rand_num)
+			else if (guess < randNum) // if the number is too low
 			{
 				cout << "Your guess is too low" << endl << endl;
 			}
 
-			if (i == tries - 1)
+			if (i == tries - 1) // if the tries goes over 20
 			{
-				cout << "The number is: " << rand_num << endl;
+				Lose(randNum);
 				lose++;
 			}
 		}
 	}
 }
 
-void GoAgain(bool& again)
+void GoAgain(bool& again) // This function is for going again
 {
-	int again_input;
-	cout << "Would you like to play again? Enter 1 for Yes and 2 for No: ";
-	cin >> again_input;
+	int tryAgain;
+	TryAgain();
+	cin >> tryAgain;
 
-	switch (again_input)
+	switch (tryAgain)
 	{
 	case 1:	again = true;
 		break;
@@ -97,8 +101,126 @@ void GoAgain(bool& again)
 		cout << "You won " << win << " time(s)! And you lost " << lose << " time(s)";
 		break;
 
-	default: cout << "Input error! Exiting program." << endl << endl;
+	default: cout << "Error. Exiting Game" << endl << endl;
 		again = false;
+		break;
+	}
+}
+
+void Win() // This is for win statements
+{
+	srand(time(NULL));
+	int randWin = (rand() % 10) + 1; 
+	switch (randWin) // takes the random number and gives a win statement
+	{
+	case 1:
+		cout << endl << endl << "Congrats! You guessed the number." << endl << endl;
+		break;
+	case 2:
+		cout << endl << endl << "Great Job! You correctly guess a random number." << endl << endl;
+		break;
+	case 3:
+		cout << endl << endl << "You finally got it right." << endl << endl;
+		break;
+	case 4:
+		cout << endl << endl << "Wow that was too easy." << endl << endl;
+		break;
+	case 5:
+		cout << endl << endl << "Now I need to make it more diffucult." << endl << endl;
+		break;
+	case 6:
+		cout << endl << endl << "You make it look way too easy." << endl << endl;
+		break;
+	case 7:
+		cout << endl << endl << "I am suprised that you actually got it." << endl << endl;
+		break;
+	case 8:
+		cout << endl << endl << "You just aced that." << endl << endl;
+		break;
+	case 9:
+		cout << endl << endl << "Well Done! You are a super star." << endl << endl;
+		break;
+	case 10:
+		cout << endl << endl << "10/10" << endl << endl;
+		break;
+	}
+}
+
+void Lose(int randomNumber) // This is for lose statements
+{
+	int randNum = randomNumber;
+	srand(time(NULL));
+	int randLose = (rand() % 10) + 1;
+	switch (randLose) // takes the random number and gives a lose statement
+	{
+	case 1:
+		cout << "You lost. The number was: " << randNum << endl;
+		break;
+	case 2:
+		cout << "Pssst, you should have tried " << randNum << endl;
+		break;
+	case 3:
+		cout << "Why did you not try " << randNum << endl;
+		break;
+	case 4:
+		cout << "The number you should have tried was " << randNum << endl;
+		break;
+	case 5:
+		cout << "Next time I would have gone with " << randNum << endl;
+		break;
+	case 6:
+		cout << "0/10. You needed to try " << randNum << endl;
+		break;
+	case 7:
+		cout << "You failed that so badly. The number was " << randNum << endl;
+		break;
+	case 8:
+		cout << "That is all you got. The actually number was " << randNum << endl;
+		break;
+	case 9:
+		cout << "You got it correct. Sike the real number was " << randNum << endl;
+		break;
+	case 10:
+		cout << "You are making me look bad. The number you should have say was " << randNum << endl;
+		break;
+	}
+}
+
+void TryAgain() // This is for play again statements
+{
+	srand(time(NULL));
+	int randAgain = (rand() % 10) + 1;
+	switch (randAgain) // takes the random number and gives a play again statement
+	{
+	case 1:
+		cout << "Would you like to play again? Enter 1 for Yes and 2 for No: ";
+		break;
+	case 2:
+		cout << "Do you want to play a game? Enter 1 for Yes and 2 for No: ";
+		break;
+	case 3:
+		cout << "Do you want to stay or leave? Enter 1 for Yes and 2 for No: ";
+		break;
+	case 4:
+		cout << "Game over. Try Again? Enter 1 for Yes and 2 for No: ";
+		break;
+	case 5:
+		cout << "Don't give up keep going. Enter 1 for Yes and 2 for No: ";
+		break;
+	case 6:
+		cout << "A successful person will profit from their mistakes and try again in a different way. Enter 1 for Yes and 2 for No: ";
+		break;
+	case 7:
+		cout << "If at first you don't succeed try again. Enter 1 for Yes and 2 for No: ";
+		break;
+	case 8:
+		cout << "Keep going you are doing great. Enter 1 for Yes and 2 for No: ";
+		break;
+	case 9:
+		cout << "You don't have to continue unless you want to. Enter 1 for Yes and 2 for No: ";
+		break;
+	case 10:
+		cout << "Failure is not a reason to quit. Enter 1 for Yes and 2 for No: ";
 		break;
 	}
 }
